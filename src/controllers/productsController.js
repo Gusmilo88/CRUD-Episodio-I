@@ -34,15 +34,37 @@ const controller = {
 	// Create -  Method to store
 	store: (req, res) => {
 		// Do the magic
+		const {name, discount, price, description, category} = req.body;
+
+		const newProduct = {
+			id : products[products.length - 1].id + 1,
+			name : name.trim(),
+			description : description.trim(),
+			price : +price,
+			discount : +discount,
+			image : null,
+			category
+		}
+
+		products.push(newProduct);
+		fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 3), "utf-8");
+
+		return res.redirect("/products")
 	},
 
 	// Update - Form to edit
 	edit: (req, res) => {
 		// Do the magic
+		const {id} = req.params;
+		const product = products.find(product => product.id === +id);
+		return res.render("product-edit-form", {
+			...product
+		})
 	},
 	// Update - Method to update
 	update: (req, res) => {
 		// Do the magic
+		
 	},
 
 	// Delete - Delete one product from DB
