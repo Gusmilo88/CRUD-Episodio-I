@@ -17,11 +17,18 @@ const controller = {
 	// Detail - Detail from one product
 	detail: (req, res) => {
 		// Do the magic
+		const {id} = req.params;
+		const product = products.find(product => product.id === +id);
+		return res.render("./detail", {
+			...product,
+			toThousand
+		})
 	},
 
 	// Create - Form to create
 	create: (req, res) => {
 		// Do the magic
+		return res.render("product-create-form")
 	},
 	
 	// Create -  Method to store

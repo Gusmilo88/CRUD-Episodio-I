@@ -19,7 +19,15 @@ const controller = {
 		})
 	},
 	search: (req, res) => {
-		return res.render("results")
+		const {keywords} = req.query;
+
+		const productsFiltered = products.filter(product => product.name.toLowerCase().includes(keywords.toLowerCase()) || product.description.toLowerCase().includes(keywords.toLowerCase()));
+
+		return res.render("results", {
+			productsFiltered,
+			toThousand,
+			keywords
+		})
 	},
 };
 
